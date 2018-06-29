@@ -11,6 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class main {
+	
+	private static int inputBarWidth = 300;
+	private static int inputBarHeight = 20;
+	
 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -19,30 +23,8 @@ public class main {
             }
         });
 		
-       /* // TODO create error handlers for inputs
-		String inputNumberOfDice = JOptionPane.showInputDialog("How many dice to roll?");
-		String inputNumberOfSides = JOptionPane.showInputDialog("How many sides should the dice have?");
-		String InputReRollValue = JOptionPane.showInputDialog("What value do we reroll?");
-		String InputTargetValue = JOptionPane.showInputDialog("What is the target value?");
-
-       
-        int numberOfDice = Integer.parseInt(inputNumberOfDice);
-        int numberOfSides = Integer.parseInt(inputNumberOfSides);
-        int reRollValue = Integer.parseInt(InputReRollValue);
-        int targetValue = Integer.parseInt(InputTargetValue);
-        
-        //If we only want to roll one die call rollDice directly
-        if(numberOfDice == 1) {
-        	DiceMethods.rollDice(numberOfSides);
-        	
-        }
-        //If we want to roll multiple die call rollNDice
-        else {
-        	ArrayList<Integer> resultList = DiceMethods.rollNDice(numberOfDice, numberOfSides);
-        	int tempInt = DiceMethods.successfulRolls(resultList, targetValue);
-        	System.out.println("The number of successful rolls were " + tempInt);
-        }
-        */
+       // TODO create error handlers for inputs
+		
 		
 	}
 	//TODO refactor all values used for defining dimensions of GUI into variables
@@ -68,19 +50,19 @@ public class main {
         //Create an input labels to put in the content pane.
         JLabel inputLabel1 = new JLabel("Hur många tärningar vill du rulla?");
         inputLabel1.setOpaque(true);
-        inputLabel1.setPreferredSize(new Dimension(500, 20));
+        inputLabel1.setPreferredSize(new Dimension(inputBarWidth, inputBarHeight));
         
         JLabel inputLabel2 = new JLabel("Hur många sidor ska de ha?");
         inputLabel2.setOpaque(true);
-        inputLabel2.setPreferredSize(new Dimension(500, 20));
+        inputLabel2.setPreferredSize(new Dimension(inputBarWidth, inputBarHeight));
         
         JLabel inputLabel3 = new JLabel("Vilka värden ska rullas om?");
         inputLabel3.setOpaque(true);
-        inputLabel3.setPreferredSize(new Dimension(500, 20));
+        inputLabel3.setPreferredSize(new Dimension(inputBarWidth, inputBarHeight));
        
         JLabel inputLabel4 = new JLabel("Vilket är minsta värde för lyckat kast?");
         inputLabel3.setOpaque(true);
-        inputLabel3.setPreferredSize(new Dimension(500, 20));
+        inputLabel3.setPreferredSize(new Dimension(inputBarWidth, inputBarHeight));
         
         //Add input fields
         JTextField field1 = new JTextField(50);
