@@ -46,7 +46,6 @@ public class Controller implements ActionListener{
 		}
 		System.out.println(nDice);
 		
-		model.update(null, view);
 		model.performDiceRolling(nDice, nSides, nThrows, reRollValue);
 	}
 
