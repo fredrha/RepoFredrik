@@ -49,7 +49,6 @@ public class DiceMethods {
 		for (int i = 0; i < diceResults.size(); i++) {
 			if(diceResults.get(i) == V) {
 				count = count + 1;
-		
 			}
 		}
 		System.out.println(count + " Tärningar rullades om");
