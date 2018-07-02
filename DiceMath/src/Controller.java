@@ -5,6 +5,10 @@ public class Controller implements ActionListener{
 	Model model;
 	View view;
 	
+	public Controller(){
+		System.out.println("Controller");
+	}
+	
 	
 	public void addModel(Model m){
 		this.model = m;
@@ -14,14 +18,36 @@ public class Controller implements ActionListener{
 		this.view = v;
 	} //addView()
 	
+	//Starts the model
 	public void initModel() {
-		
+		model.start();
 	}
 
+	//Listen to the buttonpress
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		model.notify();
+		System.out.println("Button was clicked");
+		//TODO refactor ints
+		int nDice = 0;
+		int nSides = 0;
+		int nThrows = 0;
+		int reRollValue = 0;
 		
+		//Get the input strings from the view and parse to integers
+		//TODO handle other errors
+		try {
+		nDice = Integer.parseInt(view.field1.getText());
+		nSides = Integer.parseInt(view.field2.getText());
+		nThrows = Integer.parseInt(view.field3.getText());
+		reRollValue = Integer.parseInt(view.field4.getText());
+		}
+		catch(Exception e1){
+			System.out.println("Input was not correct");
+		}
+		System.out.println(nDice);
+		
+		model.update(null, view);
+		model.performDiceRolling(nDice, nSides, nThrows, reRollValue);
 	}
 
 }

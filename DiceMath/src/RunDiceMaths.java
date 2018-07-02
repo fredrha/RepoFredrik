@@ -1,6 +1,7 @@
 
 public class RunDiceMaths {
 	
+	//Glue code that runs all components
 	public RunDiceMaths() {
 		Model myModel = new Model();
 		View myView = new View();

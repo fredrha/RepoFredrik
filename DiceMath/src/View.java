@@ -22,13 +22,19 @@ public class View implements Observer{
 	private JPanel mainPanel;
 	private JLabel outPutLabel;
 	
+	public JTextField field1;
+	public JTextField field2;
+	public JTextField field3;
+	public JTextField field4;
+	
 	
 	public void addController(ActionListener controller){
 		rollButton.addActionListener(controller);	//need instance of controller before can add it as a listener 
 	} //addController(
 	
 		//TODO Figure out how to easily group labels and input fields
-		public void createAndShowGUI() {
+		public View() {
+			System.out.println("View");
 	        //Create and set up the window.
 	        frame = new JFrame("DiceMaths");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,10 +66,10 @@ public class View implements Observer{
 	        inputLabel3.setPreferredSize(inputBarSize);
 	        
 	        //Add input fields
-	        JTextField field1 = new JTextField(50);
-	        JTextField field2 = new JTextField(50);
-	        JTextField field3 = new JTextField(50);
-	        JTextField field4 = new JTextField(50);      
+	        field1 = new JTextField(50);
+	        field2 = new JTextField(50);
+	        field3 = new JTextField(50);
+	        field4 = new JTextField(50);      
 	        
 	        rollButton = new Button("Rulla tärningar");  
 	        rollButton.setPreferredSize(new Dimension(50,50));
@@ -97,7 +103,7 @@ public class View implements Observer{
 
 		//Sends an update with the number of successful rolls
 		@Override
-		public void update(Observable DiceMathsGui, Object result) {
+		public void update(Observable view, Object result) {
 			int tempint = ((Integer)result).intValue(); 
 			outPutLabel.setText("Antal lyckade kast: " + tempint);
 		}
