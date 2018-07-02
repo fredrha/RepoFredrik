@@ -71,6 +71,23 @@ public class DiceMethods {
 			}
 	return count;
 	}
+	
+	/**
+	 * Method that returns a list of rolls that achieved a certain value or higher
+	 * @param diceResults a list of dice results
+	 * @param targetValue the value that the results must equal to or larger
+	 * @return a list of rolls that were successful
+	 */
+	public ArrayList<Integer> successfulRollsList(ArrayList<Integer> diceResults, int targetValue) {
+		ArrayList<Integer> successfulRolls = new ArrayList<Integer>();
+	
+		for (int i = 0; i < diceResults.size(); i++) {
+			if(diceResults.get(i) >= targetValue) {
+				successfulRolls.add(diceResults.get(i));
+				}
+			}
+	return successfulRolls;
+	}
 }
 
 

@@ -6,7 +6,6 @@ public class Controller implements ActionListener{
 	View view;
 	
 	public Controller(){
-		//System.out.println("Controller");
 	}
 	
 	
