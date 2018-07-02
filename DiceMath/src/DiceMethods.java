@@ -11,7 +11,6 @@ public class DiceMethods {
 		Random randomno = new Random();
 		if(nSides >3) {
 			int tempInt = randomno.nextInt(nSides)+1;
-			System.out.println(tempInt);
 			return (int) tempInt;
 		}
 		else {
@@ -53,7 +52,7 @@ public class DiceMethods {
 		
 			}
 		}
-		System.out.println(count);
+		System.out.println(count + " Tärningar rullades om");
 		return rollNDice(count, nSides);
 	}
 	

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 //View
-public class View implements Observer{
+public class View{
 	
 	private static int inputBarWidth = 300;
 	private static Dimension inputBarSize = new Dimension(300,20);
@@ -34,7 +34,6 @@ public class View implements Observer{
 	
 		//TODO Figure out how to easily group labels and input fields
 		public View() {
-			System.out.println("View");
 	        //Create and set up the window.
 	        frame = new JFrame("DiceMaths");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,11 +100,8 @@ public class View implements Observer{
 	        frame.setVisible(true);
 		}
 
-		//Sends an update with the number of successful rolls
-		@Override
-		public void update(Observable view, Object result) {
-			int tempint = ((Integer)result).intValue(); 
-			outPutLabel.setText("Antal lyckade kast: " + tempint);
+		public void showResults(int successfulRolls) {
+			outPutLabel.setText("Antal lyckade kast: " + successfulRolls);
 		}
 
 		

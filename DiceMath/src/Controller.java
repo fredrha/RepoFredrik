@@ -6,7 +6,7 @@ public class Controller implements ActionListener{
 	View view;
 	
 	public Controller(){
-		System.out.println("Controller");
+		//System.out.println("Controller");
 	}
 	
 	
@@ -26,11 +26,10 @@ public class Controller implements ActionListener{
 	//Listen to the buttonpress
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Button was clicked");
 		//TODO refactor ints
 		int nDice = 0;
 		int nSides = 0;
-		int nThrows = 0;
+		int targetValue = 0;
 		int reRollValue = 0;
 		
 		//Get the input strings from the view and parse to integers
@@ -38,15 +37,17 @@ public class Controller implements ActionListener{
 		try {
 		nDice = Integer.parseInt(view.field1.getText());
 		nSides = Integer.parseInt(view.field2.getText());
-		nThrows = Integer.parseInt(view.field3.getText());
-		reRollValue = Integer.parseInt(view.field4.getText());
+		reRollValue = Integer.parseInt(view.field3.getText());
+		targetValue = Integer.parseInt(view.field4.getText());
 		}
 		catch(Exception e1){
 			System.out.println("Input was not correct");
 		}
-		System.out.println(nDice);
 		
-		model.performDiceRolling(nDice, nSides, nThrows, reRollValue);
+		System.out.println("Rullar " + nDice +" Tärningar");
+		
+		int successfulRolls = model.performDiceRolling(nDice, nSides, targetValue, reRollValue);
+		view.showResults(successfulRolls);
 	}
 
 }
