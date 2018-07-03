@@ -87,7 +87,11 @@ public class DiceMethods {
 				}
 			}
 	return successfulRolls;
-	}
+	 }//here i am inseritng comments from vim
+
+private int testVimInt(){
+return 1;}
+
 }
 
 
