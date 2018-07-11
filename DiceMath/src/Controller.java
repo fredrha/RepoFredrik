@@ -35,7 +35,8 @@ public class Controller implements ActionListener{
 		//TODO handle other errors
 		try {
 		nDice = Integer.parseInt(view.field1.getText());
-		nSides = Integer.parseInt(view.field2.getText());
+		//nSides = Integer.parseInt(view.field2.getText());
+		nSides = view.getSelecteDice();
 		reRollValue = Integer.parseInt(view.field3.getText());
 		targetValue = Integer.parseInt(view.field4.getText());
 		}
