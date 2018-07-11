@@ -35,7 +35,6 @@ public class Controller implements ActionListener{
 		//TODO handle other errors
 		try {
 		nDice = Integer.parseInt(view.field1.getText());
-		//nSides = Integer.parseInt(view.field2.getText());
 		nSides = view.getSelecteDice();
 		reRollValue = Integer.parseInt(view.field3.getText());
 		targetValue = Integer.parseInt(view.field4.getText());
@@ -46,8 +45,14 @@ public class Controller implements ActionListener{
 		
 		System.out.println("Rullar " + nDice +" Tärningar");
 		
-		int successfulRolls = model.performDiceRolling(nDice, nSides, targetValue, reRollValue);
-		view.showResults(successfulRolls);
+		model.performDiceRolling(nDice, nSides, targetValue, reRollValue);
+		view.showResults(model.getSuccessfulRolls());
+		view.showResultsList(model.getSuccessfulRollsList());
+		
+		//int successfulRolls = model.performDiceRolling(nDice, nSides, targetValue, reRollValue);
+		
+		//view.showResults(successfulRolls);
+		//view.showResultsList(successfulRollsList);
 	}
 
 }

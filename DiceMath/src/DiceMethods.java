@@ -78,7 +78,7 @@ public class DiceMethods {
 	 * @param targetValue the value that the results must equal to or larger
 	 * @return a list of rolls that were successful
 	 */
-	public ArrayList<Integer> successfulRollsList(ArrayList<Integer> diceResults, int targetValue) {
+	public static ArrayList<Integer> successfulRollsList(ArrayList<Integer> diceResults, int targetValue) {
 		ArrayList<Integer> successfulRolls = new ArrayList<Integer>();
 	
 		for (int i = 0; i < diceResults.size(); i++) {
@@ -87,10 +87,7 @@ public class DiceMethods {
 				}
 			}
 	return successfulRolls;
-	 }//here i am inseritng comments from vim
-
-private int testVimInt(){
-return 1;}
+	 }
 
 }
 

@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -28,11 +29,12 @@ public class View{
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JLabel outPutLabel;
+	private JLabel outPutLabel2;
 	private JPanel diceSelectLayout;
 	private JButton[] diceButtonList;
 	
+	//TODO rename field appropriately
 	public JTextField field1;
-	public JTextField field2;
 	public JTextField field3;
 	public JTextField field4;
 	private int selectedDice = 0;
@@ -100,16 +102,17 @@ public class View{
 	        outPutLabel.setPreferredSize(new Dimension(inputBarWidth, 50));
 	        mainPanel.add(outPutLabel);
 	        
+	        outPutLabel2 = new JLabel("Lyckade resultat: ");
+	        outPutLabel2.setOpaque(true);
+	        outPutLabel2.setPreferredSize(new Dimension(inputBarWidth, 50));
+	        mainPanel.add(outPutLabel2);
+	        
 	        //add the mainPanel to the frame
 	        frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 	        
 	        //Display the window.
 	        frame.pack();
 	        frame.setVisible(true);
-		}
-
-		public void showResults(int successfulRolls) {
-			outPutLabel.setText("Antal lyckade kast: " + successfulRolls);
 		}
 		
 		
@@ -141,6 +144,15 @@ public class View{
 		
 		public int getSelecteDice() {
 			return selectedDice;
+		}
+		
+		public void showResults(int successfulRolls) {
+			outPutLabel.setText("Antal lyckade kast: " + successfulRolls);
+		}
+
+		public void showResultsList(ArrayList<Integer> successfulRollsList) {
+			outPutLabel2.setText("Lyckade resultat: " + successfulRollsList);
+			
 		}
 		
 
