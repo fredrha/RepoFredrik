@@ -32,8 +32,6 @@ public class GameBoard extends JPanel implements ActionListener{
     private int apple_x = 100;
     private int apple_y = 100;
     private SnakeAdapter snakeAdapter;
-    
-    private int direction = 2;
     private boolean hasCollided = false;
 
 	public GameBoard() {
@@ -60,13 +58,10 @@ public class GameBoard extends JPanel implements ActionListener{
 		
 		drawApple(g);
 		drawSnake(g);
-	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		//Implement methods below that move the snake, 
-		//check for collisions and apples
 		move();
 		checkCollision();
 		checkApple();
@@ -89,16 +84,14 @@ public class GameBoard extends JPanel implements ActionListener{
 		dots = 3;
 
 	    for (int z = 0; z < dots; z++) {
-	        snakeX[z] = 50 - z * 10;
-	        snakeY[z] = 50;
-	    }   
-	   
+	        snakeX[z] = 100 - z * 10;
+	        snakeY[z] = 100;
+	    }      
 	    timer = new Timer(DELAY, this);
 	    timer.start();
-	   
-	      	    
 	}
 	
+	 
 	private void drawApple(Graphics g) {
 		g.drawImage(apple, apple_x, apple_y, this);
 	}
@@ -134,7 +127,7 @@ public class GameBoard extends JPanel implements ActionListener{
 	        }
 	    }
 
-	 //TODO fix method so that collision does not occur outside boundaries or to early.
+	 //TODO fix method so that collision does not occur outside boundaries.
 	private void checkCollision() {
 		//heck to see if snake has gone off an edge
 		if(snakeX[0] >= BOARD_WIDTH || snakeX[0] + 10 <= 0 || 
@@ -151,15 +144,13 @@ public class GameBoard extends JPanel implements ActionListener{
 	
 		if(hasCollided) {
 		timer.stop();
+		Snake.gameEnd();
 		}
 	
 	}
 	
 	private void checkApple() {
-		
-
 	        if ((snakeX[0] == apple_x) && (snakeY[0] == apple_y)) {
-
 	            dots++;
 	           placeNewApple();
 	        }
@@ -171,6 +162,17 @@ public class GameBoard extends JPanel implements ActionListener{
 		
 		apple_x = rand_x * DOT_SIZE;
 		apple_y = rand_y * DOT_SIZE;
+	}
+
+	public void resetGame() {
+		hasCollided = false;
+		snakeAdapter.resetDirection();
+		placeNewApple();
+		initGame();
+		
+	}
+	public int getEatenApples(){
+		return dots-3;
 	}
 	
 }

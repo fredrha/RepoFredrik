@@ -27,5 +27,8 @@ public class SnakeAdapter extends KeyAdapter {
 	public int getDirection() {
 		return direction;
 	}
+	public void resetDirection() {
+		direction = 2;
+	}
 	
 }
