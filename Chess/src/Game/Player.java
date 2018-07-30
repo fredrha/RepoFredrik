@@ -1,6 +1,6 @@
 package Game;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import Pieces.ChessPiece;
 
@@ -12,31 +12,36 @@ import Pieces.ChessPiece;
  */
 public class Player {
 	
-	private String [][] chessPieces;
+	
 	private String color;
+	private HashSet<ChessPiece> chessPieces;
 	
 	public Player(String color) {
 		this.color = color;
-		chessPieces = new String [8][8];
-		for(int i = 0; i < chessPieces.length; i++) {
-			chessPieces[0][i] = "Farmer";
-		}
-		chessPieces[1][0] = "Tower";
-		chessPieces[1][7] = "Tower";
-		chessPieces[1][1] = "Knight";
-		chessPieces[1][6] = "Knight";
-		chessPieces[1][2] = "Bishop";
-		chessPieces[1][5] = "Bishop";
-		chessPieces[1][3] = "Queen";
-		chessPieces[1][4] = "King";
+		chessPieces = new HashSet<ChessPiece>();
 	}
 
 
 
-	public String [][] getChessPieces(){
+	public HashSet<ChessPiece> getChessPieces(){
 		return chessPieces;
+	}
+	
+	public void addPiece(ChessPiece piece) {
+		chessPieces.add(piece);
+	}
+	
+	public void removePiece(ChessPiece piece){
+		chessPieces.remove(piece);
 	}
 	public String getColor() {
 		return color;
+	}
+
+
+	//TODO Check conditions for check, stalemate and checkmate
+	public void updateState() {
+		
+		
 	}
 }
