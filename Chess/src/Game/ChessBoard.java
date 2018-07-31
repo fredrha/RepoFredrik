@@ -105,6 +105,7 @@ public class ChessBoard {
 		
 	}
 	
+	//TODO refactor: Move these methods to piece maybe?
 	public HashSet<CoordinatePair> getAllPaths(CoordinatePair Coordp, Player currentPlayer){
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		
@@ -120,7 +121,6 @@ public class ChessBoard {
 	public HashSet<CoordinatePair> getStraightPaths(CoordinatePair Coordp, Player currentPlayer){
 		int x = Coordp.getX();
 		int y = Coordp.getY();
-		boolean pathBlocked = false;
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		
 		//TODO investiaget whether this actually does anything useful
@@ -130,8 +130,8 @@ public class ChessBoard {
 		}
 		//For each direction chek if there is a piece on the tile. If not add the tile to possiblemoves
 		
-		HashSet<CoordinatePair> horizontalPaths = getHorizontalPath(x, y, currentPlayer, pathBlocked);	
-		HashSet<CoordinatePair> verticalPaths = getVertialPath(x, y, currentPlayer, pathBlocked);
+		HashSet<CoordinatePair> horizontalPaths = getHorizontalPath(x, y, currentPlayer);	
+		HashSet<CoordinatePair> verticalPaths = getVertialPath(x, y, currentPlayer);
 
 		paths.addAll(horizontalPaths);
 		paths.addAll(verticalPaths);
@@ -139,17 +139,17 @@ public class ChessBoard {
 	}
 	
 	//TODO check if we an refactor more from these methods. For example the checking if path blocked and adding piece
-	private HashSet<CoordinatePair> getHorizontalPath(int x, int y, Player currentPlayer, boolean pathBlocked) {
+	private HashSet<CoordinatePair> getHorizontalPath(int x, int y, Player currentPlayer) {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false;
 		
 		for(int i = y-1; i >= 0; i--) {
 		CoordinatePair tmpCoordP = new CoordinatePair(x,i);
-		ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 		
-		if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+		if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 			pathBlocked = true;
 			}
-		if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+		if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 			paths.add(tmpCoordP);
 			pathBlocked = true;
 			}
@@ -161,12 +161,11 @@ public class ChessBoard {
 		pathBlocked = false;
 		for(int i = y+1; i < getWidth(); i++) {
 			CoordinatePair tmpCoordP = new CoordinatePair(x,i);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -177,17 +176,17 @@ public class ChessBoard {
 			}
 		return paths;
 	}
-	private HashSet<CoordinatePair> getVertialPath(int x, int y, Player currentPlayer, boolean pathBlocked) {
+	private HashSet<CoordinatePair> getVertialPath(int x, int y, Player currentPlayer) {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false; 
 		
 			for(int i = x-1; i >= 0; i--) {
 			CoordinatePair tmpCoordP = new CoordinatePair(i,y);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -199,12 +198,11 @@ public class ChessBoard {
 			pathBlocked = false;
 			for(int i = x+1; i < getWidth(); i++) {
 				CoordinatePair tmpCoordP = new CoordinatePair(i,y);
-				ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 				
-				if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+				if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 					pathBlocked = true;
 					}
-				if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+				if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 					paths.add(tmpCoordP);
 					pathBlocked = true;
 					}
@@ -219,14 +217,12 @@ public class ChessBoard {
 	public HashSet<CoordinatePair> getDiagPaths(CoordinatePair Coordp, Player currentPlayer){
 		int x = Coordp.getX();
 		int y = Coordp.getY();
-		boolean pathBlocked = false;
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		
-		HashSet<CoordinatePair> rightToLeftUpPaths = getRightToLeftUpPath(x, y, currentPlayer, pathBlocked);
-		HashSet<CoordinatePair> rightToLeftDownPaths = getRightToLeftDownPath(x, y, currentPlayer, pathBlocked);
-		HashSet<CoordinatePair> leftToRightDownPath = getLeftToRightDownPath(x, y, currentPlayer, pathBlocked);
-		HashSet<CoordinatePair> leftToRightPaths = getleftToRightUpPath(x, y, currentPlayer, pathBlocked);
-
+		HashSet<CoordinatePair> rightToLeftUpPaths = getRightToLeftUpPath(x, y, currentPlayer);
+		HashSet<CoordinatePair> rightToLeftDownPaths = getRightToLeftDownPath(x, y, currentPlayer);
+		HashSet<CoordinatePair> leftToRightDownPath = getLeftToRightDownPath(x, y, currentPlayer);
+		HashSet<CoordinatePair> leftToRightPaths = getleftToRightUpPath(x, y, currentPlayer);
 		
 		paths.addAll(rightToLeftUpPaths);
 		paths.addAll(rightToLeftDownPaths);
@@ -234,20 +230,20 @@ public class ChessBoard {
 		paths.addAll(leftToRightPaths);
 		return paths;
 	}
-	private HashSet<CoordinatePair> getRightToLeftUpPath(int x, int y, Player currentPlayer, boolean pathBlocked) {
+	private HashSet<CoordinatePair> getRightToLeftUpPath(int x, int y, Player currentPlayer) {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false;
 		//Set the comparison variable to be the lower one of x ad y
 		//This is to prevent going of the board.
 		int k = Math.min(x, y);
 		for(int i = 1; i <= k; i++) {
 			//TODO refactor this into a method, for code reuse
 			CoordinatePair tmpCoordP = new CoordinatePair(x-i,y-i);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -261,21 +257,19 @@ public class ChessBoard {
 			return paths;
 	}
 	
-	private HashSet<CoordinatePair> getRightToLeftDownPath(int x, int y, Player currentPlayer, boolean pathBlocked){
+	private HashSet<CoordinatePair> getRightToLeftDownPath(int x, int y, Player currentPlayer){
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false;
 		
-		int k = Math.max(x, getWidth()-y);
-		//TODO syso height
+		int k = Math.max(x, getWidth()-y-1);
 		for(int i = 1;i+k < getWidth() ;i++) {
-			
 			//TODO refactor this into a method, for code reuse
 			CoordinatePair tmpCoordP = new CoordinatePair(x+i,y-i);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -288,19 +282,18 @@ public class ChessBoard {
 		return paths;
 	}
 	
-	private HashSet<CoordinatePair> getLeftToRightDownPath(int x, int y, Player currentPlayer, boolean pathBlocked){
+	private HashSet<CoordinatePair> getLeftToRightDownPath(int x, int y, Player currentPlayer){
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false;
 		int k = Math.max(x, y);
-		//TODO syso height
+		//TODO refactor this into a method, for code reuse
 		for(int i = 1;i+k < getHeight() ;i++) {
-			//TODO refactor this into a method, for code reuse
 			CoordinatePair tmpCoordP = new CoordinatePair(x+i,y+i);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -309,26 +302,22 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				}
 		}
-		
-		
 		return paths;
 	}
 	
-	private HashSet<CoordinatePair> getleftToRightUpPath(int x, int y, Player currentPlayer, boolean pathBlocked) {
+	private HashSet<CoordinatePair> getleftToRightUpPath(int x, int y, Player currentPlayer) {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		boolean pathBlocked = false;
 		
-		int k = Math.max(getHeight()-x, y);
-		//TODO syso height
+		int k = Math.max(getHeight()-x-1, y);
+		//TODO refactor into method: Idea, method including for loop, Inputs specify limits and whether to go up or down
 		for(int i = 1;i+k < getHeight() ;i++) {
-			
-			//TODO refactor this into a method, for code reuse
 			CoordinatePair tmpCoordP = new CoordinatePair(x-i,y+i);
-			ChessPiece tmpPiece = this.getSquare(tmpCoordP);
 			
-			if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
+			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
 				}
-			if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
+			if(occupiedByEnemy(tmpCoordP,currentPlayer) && !pathBlocked) {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
@@ -337,34 +326,41 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				}
 		}
-		
-		
 		return paths;
 	}
-		
-	//TODO finish refatoring and start using this in all getpath methods
-	private void addCoordPairToPath(int x, int y, Player currentPlayer, HashSet<CoordinatePair> paths, boolean pathBlocked) {
-		CoordinatePair tmpCoordP = new CoordinatePair(x,y);
-		ChessPiece tmpPiece = this.getSquare(tmpCoordP);
-		
-		if(tmpPiece != null && tmpPiece.getPlayer() == currentPlayer) {
-			pathBlocked = true;
-			}
-		if(tmpPiece != null && tmpPiece.getPlayer() != currentPlayer) {
-			paths.add(tmpCoordP);
-			pathBlocked = true;
-			}
-		//If path is not blocked add the coordinates to the path
-		if(!pathBlocked) {
-			paths.add(tmpCoordP);
-			}
-	}
-	
+
 	//TODO Implement to get steps for farmers and possibly kings
 	public HashSet<CoordinatePair> getForwardStep(CoordinatePair Coordp, Player currentPlayer){
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
+		
 		return paths;
 	}
-	
+	/**
+	 * Checks if coordinates are on the chessboard
+	 * @param CoordP
+	 * @return true if the coordinates are outside of the bounds of the board and false otherwise
+	 */
+	public boolean outOfBounds(CoordinatePair CoordP) {
+		int x = CoordP.getX();
+		int y = CoordP.getY();
+		if(x >= getHeight()|| x < 0|| y >= getWidth() || y < 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean occupiedByFriend(CoordinatePair CoordP, Player currentPlayer) {
+		ChessPiece piece = this.getSquare(CoordP);
+		if(piece != null && piece.getPlayer() == currentPlayer) {
+			return true;
+		}
+		return false;
+	}
+	public boolean occupiedByEnemy(CoordinatePair CoordP, Player currentPlayer) {
+		ChessPiece piece = this.getSquare(CoordP);
+		if(piece != null && piece.getPlayer() != currentPlayer) {
+			return true;
+		}
+		return false;
+	}
 	
 }

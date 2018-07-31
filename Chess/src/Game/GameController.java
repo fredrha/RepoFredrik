@@ -6,6 +6,8 @@ import Pieces.Bishop;
 import Pieces.ChessPiece;
 import Pieces.CoordinatePair;
 import Pieces.Farmer;
+import Pieces.King;
+import Pieces.Knight;
 import Pieces.Queen;
 import Pieces.Rook;
 
@@ -55,19 +57,26 @@ public class GameController {
 		CoordinatePair CoordP = chessBoard.getCoordinates(backRow, 0);
 		new Rook(CoordP, player);
 		
-		CoordP = chessBoard.getCoordinates(backRow, 7);
-		new Rook(CoordP, player);
+		CoordP = chessBoard.getCoordinates(backRow, 1);
+		new Knight(CoordP, player);
 		
 		CoordP = chessBoard.getCoordinates(backRow, 2);
 		new Bishop(CoordP, player);
 		
-		CoordP = chessBoard.getCoordinates(backRow, 5);
-		new Bishop(CoordP, player);
-		
+		CoordP = chessBoard.getCoordinates(backRow, 3);
+		new King(CoordP, player);
 		
 		CoordP = chessBoard.getCoordinates(backRow, 4);
 		new Queen(CoordP, player);
 		
+		CoordP = chessBoard.getCoordinates(backRow, 5);
+		new Bishop(CoordP, player);
+		
+		CoordP = chessBoard.getCoordinates(backRow, 6);
+		new Knight(CoordP, player);
+		
+		CoordP = chessBoard.getCoordinates(backRow, 7);
+		new Rook(CoordP, player);
 	}
 	
 	public Player getCurrentPlayer() {

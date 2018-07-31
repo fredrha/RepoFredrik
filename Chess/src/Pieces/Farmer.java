@@ -22,22 +22,47 @@ public class Farmer extends ChessPiece{
 	public HashSet<CoordinatePair> updatePossibleMoves() {
 		int x = super.getPosition().getX();
 		int y = super.getPosition().getY();
+		ChessBoard chessBoard = ChessBoard.getInstance();
 		
 		if (player.getColor() == "Black") {
 		CoordinatePair forward = new CoordinatePair(x+1, y);
 		CoordinatePair rightDiag = new CoordinatePair(x+1, y+1);
 		CoordinatePair leftDiag = new CoordinatePair(x+1, y-1);
+		CoordinatePair forwardTwo = new CoordinatePair(x+2, y);
 		availableMoves.add(forward);
-		availableMoves.add(rightDiag);
-		availableMoves.add(leftDiag);
+		if(!chessBoard.outOfBounds(rightDiag)) {
+			if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
+			availableMoves.add(rightDiag);
+			}
+		}
+		if(!chessBoard.outOfBounds(leftDiag)) {
+			if(chessBoard.occupiedByEnemy(leftDiag, this.getPlayer())) {
+			availableMoves.add(leftDiag);
+			}
+		}
+		if(x == 1) {
+			availableMoves.add(forwardTwo);
+			}
 		}
 		else if(player.getColor() == "White"){
 			CoordinatePair forward = new CoordinatePair(x-1, y);
 			CoordinatePair rightDiag = new CoordinatePair(x-1, y+1);
 			CoordinatePair leftDiag = new CoordinatePair(x-1, y-1);
+			CoordinatePair forwardTwo = new CoordinatePair(x-2, y);
 			availableMoves.add(forward);
-			availableMoves.add(rightDiag);
-			availableMoves.add(leftDiag);
+			if(!chessBoard.outOfBounds(rightDiag)) {
+				if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
+				availableMoves.add(rightDiag);
+				}
+			}
+			if(!chessBoard.outOfBounds(leftDiag)) {
+				if(chessBoard.occupiedByEnemy(leftDiag, this.getPlayer())) {
+				availableMoves.add(leftDiag);
+				}
+			}
+			if(x == 6) {
+				availableMoves.add(forwardTwo);
+				}
 		}
 		return availableMoves;
 	}

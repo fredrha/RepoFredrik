@@ -9,19 +9,32 @@ import Game.Player;
 
 public class King extends ChessPiece{
 	
-	private HashSet<CoordinatePair> availableMoves;
 	private ImageIcon icon;
 	
 	
 	public King(CoordinatePair CoordPair, Player player) {
 		super(CoordPair, player);
 		readImage();
+		availableMoves = new HashSet<CoordinatePair>();
 	}
 
 	@Override
 	public HashSet<CoordinatePair> updatePossibleMoves() {
-		ChessBoard chessBoard = ChessBoard.getInstance();
-		availableMoves = chessBoard.getAllPaths(this.getPosition(), this.getPlayer());
+		int x = super.getPosition().getX();
+		int y = super.getPosition().getY();
+		ChessBoard chessboard = ChessBoard.getInstance();
+		for(int i = x-1; i <= x+1; i++) {
+			for(int j = y-1; j <= y+1; j++) {
+				CoordinatePair CoordP = new CoordinatePair(i,j);
+				if(!chessboard.outOfBounds(CoordP)) {
+					if(!chessboard.occupiedByFriend(CoordP, this.getPlayer())) {
+						if(!CoordP.equals(this.getPosition())){
+							availableMoves.add(CoordP);
+						}
+					}	
+				}
+			}
+		}
 		
 		return availableMoves;
 	}
@@ -29,11 +42,11 @@ public class King extends ChessPiece{
 	@Override
 	protected void readImage() {
 		if(player.getColor() == "White") {
-			ImageIcon icon = new ImageIcon("src/images/White queen.png");
+			ImageIcon icon = new ImageIcon("src/images/White king.png");
 			this.icon = icon;
 			}
 			else if(player.getColor()  == "Black") {
-				ImageIcon icon = new ImageIcon("src/images/Black queen.png");
+				ImageIcon icon = new ImageIcon("src/images/Black king.png");
 				this.icon = icon;
 			}
 			else {
