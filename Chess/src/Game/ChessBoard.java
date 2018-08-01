@@ -128,7 +128,7 @@ public class ChessBoard {
 			System.out.println("Outside bounds");
 			return null;
 		}
-		//For each direction chek if there is a piece on the tile. If not add the tile to possiblemoves
+		//For each direction check if there is a piece on the tile. If not add the tile to possiblemoves
 		
 		HashSet<CoordinatePair> horizontalPaths = getHorizontalPath(x, y, currentPlayer);	
 		HashSet<CoordinatePair> verticalPaths = getVertialPath(x, y, currentPlayer);
@@ -138,7 +138,6 @@ public class ChessBoard {
 		return paths;
 	}
 	
-	//TODO check if we an refactor more from these methods. For example the checking if path blocked and adding piece
 	private HashSet<CoordinatePair> getHorizontalPath(int x, int y, Player currentPlayer) {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		boolean pathBlocked = false;
@@ -251,7 +250,6 @@ public class ChessBoard {
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
-			
 		}
 
 			return paths;

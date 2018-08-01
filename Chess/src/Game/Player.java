@@ -3,6 +3,8 @@ package Game;
 import java.util.HashSet;
 
 import Pieces.ChessPiece;
+import Pieces.CoordinatePair;
+import Pieces.King;
 
 /**
  * 
@@ -12,9 +14,11 @@ import Pieces.ChessPiece;
  */
 public class Player {
 	
-	
+	private King king;
 	private String color;
 	private HashSet<ChessPiece> chessPieces;
+	
+	public boolean isChecked;
 	
 	public Player(String color) {
 		this.color = color;
@@ -28,6 +32,9 @@ public class Player {
 	}
 	
 	public void addPiece(ChessPiece piece) {
+		if(piece instanceof King) {
+			king = (King)piece;
+		}
 		chessPieces.add(piece);
 	}
 	
@@ -37,11 +44,37 @@ public class Player {
 	public String getColor() {
 		return color;
 	}
-
-
-	//TODO Check conditions for check, stalemate and checkmate
-	public void updateState() {
-		
-		
+	
+	public King getKing() {
+		return king;
 	}
+
+	//Checks if checked
+	public boolean opponentIsChecked() {
+		GameController controller = GameController.getInstance();
+		Player opponent = controller.getOpponent();
+		CoordinatePair opKingPosition = opponent.getKing().getPosition();
+
+		for(ChessPiece piece: this.getChessPieces()) {
+			HashSet<CoordinatePair> availableMoves = piece.updatePossibleMoves();
+			for(CoordinatePair CP: availableMoves) {
+				if(CP.equals(opKingPosition)) {	
+
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	//TODO implement
+	public boolean isCheckMate() {
+		
+		GameController controller = GameController.getInstance();
+		Player opponent = controller.getOpponent();
+		
+		
+		return true;
+	}
+	
+	
 }

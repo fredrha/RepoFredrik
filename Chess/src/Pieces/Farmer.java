@@ -29,7 +29,9 @@ public class Farmer extends ChessPiece{
 		CoordinatePair rightDiag = new CoordinatePair(x+1, y+1);
 		CoordinatePair leftDiag = new CoordinatePair(x+1, y-1);
 		CoordinatePair forwardTwo = new CoordinatePair(x+2, y);
-		availableMoves.add(forward);
+		if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
+			availableMoves.add(forward);
+		}
 		if(!chessBoard.outOfBounds(rightDiag)) {
 			if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
 			availableMoves.add(rightDiag);
@@ -49,7 +51,9 @@ public class Farmer extends ChessPiece{
 			CoordinatePair rightDiag = new CoordinatePair(x-1, y+1);
 			CoordinatePair leftDiag = new CoordinatePair(x-1, y-1);
 			CoordinatePair forwardTwo = new CoordinatePair(x-2, y);
-			availableMoves.add(forward);
+			if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
+				availableMoves.add(forward);
+			}
 			if(!chessBoard.outOfBounds(rightDiag)) {
 				if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
 				availableMoves.add(rightDiag);

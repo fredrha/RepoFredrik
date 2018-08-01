@@ -58,8 +58,10 @@ public class SelectSquareListener implements ActionListener{
 			chessBoard.setSelectedPiece(null);
 			selectedSquare.setIcon(piece.getIcon());
 			
-			gameController.switchPlayer();
 			
+			gameController.updateGameState();
+			gameController.updateLatestmove(piece, targetCoordP);
+			gameController.switchPlayer();
 		}	
 		//TODO implement functions that check the state of the board and call them here
 			

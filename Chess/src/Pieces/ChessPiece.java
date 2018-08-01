@@ -51,7 +51,7 @@ public abstract class ChessPiece{
 		}
 		return false;
 	}
-	protected void clearAvailableMoves(HashSet<CoordinatePair> availableMoves) {
+	public void clearAvailableMoves(HashSet<CoordinatePair> availableMoves) {
 		if(availableMoves != null)
 		availableMoves.clear();
 	}

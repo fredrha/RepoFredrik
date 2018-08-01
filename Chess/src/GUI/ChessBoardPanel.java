@@ -22,7 +22,7 @@ public class ChessBoardPanel extends JPanel {
 	private JButton [][]chessSquares;
 	private JButton selectedPiece = null;
 	
-	private Dimension buttonSize = new Dimension(200,200);
+	private Dimension buttonSize = new Dimension(180,180);
 	private ChessBoard chessBoard;
 	
 	public ChessBoardPanel(int height, int width) {

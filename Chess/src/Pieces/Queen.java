@@ -21,7 +21,6 @@ public class Queen extends ChessPiece{
 	public HashSet<CoordinatePair> updatePossibleMoves() {
 		ChessBoard chessBoard = ChessBoard.getInstance();
 		availableMoves = chessBoard.getAllPaths(this.getPosition(), this.getPlayer());
-		//Add diagonal moves
 		return availableMoves;
 	}
 

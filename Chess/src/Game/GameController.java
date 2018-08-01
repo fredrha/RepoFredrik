@@ -90,7 +90,6 @@ public class GameController {
 			return whitePlayer;
 		}
 	}
-	
 	public void switchPlayer() {
 		if(currentPlayer == whitePlayer) {
 			currentPlayer = blackPlayer;
@@ -98,16 +97,30 @@ public class GameController {
 		else if(currentPlayer == blackPlayer) {
 			currentPlayer = whitePlayer;
 		}
-		System.out.println("Currentplayer is: " + currentPlayer.getColor().toString() );
 		Chess.switchPlayer();
 	}
 	
-	public boolean updateGameState() {
-		Player opponent = getOpponent();
-		opponent.updateState();
+	public void updateGameState() {
+		
+		if(getCurrentPlayer().opponentIsChecked()) {
+			Chess.updateGameState("checked");
+		}
+		else {
+			Chess.updateGameState(null);
+		}
+		
 		//TODO heck if current player is checked, stalemate or checkmate
 		//Return false if any case is true
-		return true;
+		
+	}
+
+	public void updateLatestmove(ChessPiece piece, CoordinatePair targetCoord) {
+		String playerColor = piece.getPlayer().getColor();
+		String pieceName = piece.getClass().getSimpleName().toString();
+		String move = playerColor + " " + pieceName +
+				" to" + " " + targetCoord.getX() + " " + targetCoord.getY();	
+	Chess.updateLatestMove(move);
+		
 	}
 	
 
