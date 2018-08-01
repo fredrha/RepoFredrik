@@ -21,6 +21,12 @@ public class GameController {
 	private String white = "White";
 	private String black = "Black";
 	
+	public static final String CHECKMATE = "checkmate";
+	public static final String STALEMATE = "stalemate";
+	public static final String INPROGRESS = "in progress";
+	
+	private String status;
+	
 	public GameController() {
 		
 		whitePlayer = new Player(white);
@@ -41,7 +47,18 @@ public class GameController {
 		return gameController;
 	}
 	
-	//TODO Implement
+	public String getStatus() {
+		return status;
+	}
+	//TODO add functionality for restarting players
+	public void restart() {
+		//check to see if we need restart method for players
+		//whitePlayer.restart();
+		
+		status = INPROGRESS;
+		ChessBoard.initInstance(8, 8);
+		initPieces();
+	}
 	public void initPieces() {
 		initPieceHelper(whitePlayer, 6,7);
 		initPieceHelper(blackPlayer, 1,0);
@@ -104,14 +121,18 @@ public class GameController {
 		
 		if(getCurrentPlayer().opponentIsChecked()) {
 			Chess.updateGameState("checked");
+			
+		}
+		if(getCurrentPlayer().opponentIsCheckMate()) {
+			status = CHECKMATE;
+		}
+		if(getCurrentPlayer().isStaleMate()) {
+			status = STALEMATE;
 		}
 		else {
 			Chess.updateGameState(null);
 		}
-		
-		//TODO heck if current player is checked, stalemate or checkmate
-		//Return false if any case is true
-		
+
 	}
 
 	public void updateLatestmove(ChessPiece piece, CoordinatePair targetCoord) {

@@ -67,13 +67,19 @@ public class Player {
 		return false;
 	}
 	//TODO implement
-	public boolean isCheckMate() {
+	public boolean opponentIsCheckMate() {
 		
 		GameController controller = GameController.getInstance();
 		Player opponent = controller.getOpponent();
 		
 		
 		return true;
+	}
+
+	//TODO implement
+	public boolean isStaleMate() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

@@ -100,10 +100,6 @@ public class ChessBoard {
 		}
 		return true;
 	}
-	public void colorSelectedPiece() {
-	//TODO implement to color selected pieces	
-		
-	}
 	
 	//TODO refactor: Move these methods to piece maybe?
 	public HashSet<CoordinatePair> getAllPaths(CoordinatePair Coordp, Player currentPlayer){

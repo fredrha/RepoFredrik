@@ -1,9 +1,7 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
 
 import javax.swing.JButton;
 
@@ -11,7 +9,6 @@ import Game.ChessBoard;
 import Game.GameController;
 import Pieces.ChessPiece;
 import Pieces.CoordinatePair;
-import Pieces.Rook;
 
 public class SelectSquareListener implements ActionListener{
 
@@ -26,12 +23,11 @@ public class SelectSquareListener implements ActionListener{
 			CoordinatePair CoordP = (CoordinatePair) selectedSquare.getClientProperty("CoordP");
 			ChessPiece piece = ((ChessPiece)chessBoard.getSquare(CoordP));
 			
-			//Check if the selected square has a piece on it. If not select the piece and color the tile.
 			if(piece != null && piece.getPlayer() == gameController.getCurrentPlayer()) {
 				
 				//TODO implement functionality that colors the selected tile and later uncolors it.
-					
 				chessBoard.setSelectedPiece(selectedSquare);
+				
 				return;
 			}
 			//If a piece is selected and a button is clicked try to move the piece to the square
@@ -64,10 +60,10 @@ public class SelectSquareListener implements ActionListener{
 			gameController.switchPlayer();
 		}	
 		//TODO implement functions that check the state of the board and call them here
-			
+			//if(controller.getstatus() == "Checked")
 		
 	}
 	
-	
+
 
 }

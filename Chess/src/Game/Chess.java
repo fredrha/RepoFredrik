@@ -2,12 +2,10 @@ package Game;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import GUI.ChessBoardPanel;
 import GUI.GameStatusPanel;
-import Pieces.ChessPiece;
-import Pieces.CoordinatePair;
+import GUI.LetterCoordinatePanel;
 
 public class Chess extends JFrame {
 	
@@ -27,12 +25,11 @@ public class Chess extends JFrame {
 		GameController controller = GameController.initInstance();
 		controller.initPieces();
 		
-		ChessBoardPanel chessBoardPanel = new ChessBoardPanel(8,8);
+		ChessBoardPanel chessBoardPanel = new ChessBoardPanel(9,9);
 		chessGame.add(chessBoardPanel, BorderLayout.CENTER);
 		
 		statusPanel = new GameStatusPanel();
 		chessGame.add(statusPanel, BorderLayout.NORTH);
-		
 		
 		chessGame.pack();
 		chessGame.setDefaultCloseOperation(EXIT_ON_CLOSE);
