@@ -44,10 +44,8 @@ public abstract class ChessPiece{
 	 */
 	public boolean isMoveLegal(CoordinatePair CoordP) {
 		HashSet<CoordinatePair> CoordList = updatePossibleMoves();
-		for(CoordinatePair CP: CoordList) {
-			if(CP.equals(CoordP)) {	
+			if(CoordList.contains(CoordP)) {	
 				return true;
-			}
 		}
 		return false;
 	}

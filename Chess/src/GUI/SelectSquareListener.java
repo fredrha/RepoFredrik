@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,25 +18,27 @@ public class SelectSquareListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-			//Get the controller, chessboard, selected button, coordinates of the button
-			//and the piece that is on it if a piece exists
 			ChessBoard chessBoard = ChessBoard.getInstance();
 			GameController gameController = GameController.getInstance();
 			JButton selectedSquare = (JButton) e.getSource();
 			CoordinatePair CoordP = (CoordinatePair) selectedSquare.getClientProperty("CoordP");
 			ChessPiece piece = ((ChessPiece)chessBoard.getSquare(CoordP));
-			System.out.println(gameController.getCurrentPlayer().getColor().toString());
 			
 			if(piece != null && piece.getPlayer() == gameController.getCurrentPlayer()) {
 				
 				//TODO implement functionality that colors the selected tile and later uncolors it.
 				chessBoard.setSelectedPiece(selectedSquare);
 				
+				//remove if fix does not work.
+				//chessBoard.setColoredPiece(selectedSquare);
+				
 				return;
 			}
 			//If a piece is selected and a button is clicked try to move the piece to the square
 			if(chessBoard.getSelectedPiece() != null) {
-				moveToSquare(selectedSquare);	
+				moveToSquare(selectedSquare);
+				//chessBoard.getColoredPiece().getClientProperty("CoordP");
+				
 			}
 	}
 
@@ -56,7 +59,6 @@ public class SelectSquareListener implements ActionListener{
 			chessBoard.getSelectedPiece().setIcon(null);
 			chessBoard.setSelectedPiece(null);
 			selectedSquare.setIcon(piece.getIcon());
-			
 			
 			gameController.updateGameState();
 			gameController.updateLatestmove(piece, targetCoordP);

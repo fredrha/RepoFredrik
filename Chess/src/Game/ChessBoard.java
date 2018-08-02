@@ -12,6 +12,7 @@ public class ChessBoard {
 	private ChessPiece[][] chessSquares;
 	private CoordinatePair[][] coordinates;
 	private JButton selectedPiece = null;
+	private JButton coloredSquare = null;
 	
 	private static ChessBoard chessBoard = null;
 	
@@ -101,7 +102,6 @@ public class ChessBoard {
 		return true;
 	}
 	
-	//TODO refactor: Move these methods to piece maybe?
 	public HashSet<CoordinatePair> getAllPaths(CoordinatePair Coordp, Player currentPlayer){
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		
@@ -113,7 +113,6 @@ public class ChessBoard {
 		return paths;
 	}
 	
-	
 	public HashSet<CoordinatePair> getStraightPaths(CoordinatePair Coordp, Player currentPlayer){
 		int x = Coordp.getX();
 		int y = Coordp.getY();
@@ -124,7 +123,6 @@ public class ChessBoard {
 			System.out.println("Outside bounds");
 			return null;
 		}
-		//For each direction check if there is a piece on the tile. If not add the tile to possiblemoves
 		
 		HashSet<CoordinatePair> horizontalPaths = getHorizontalPath(x, y, currentPlayer);	
 		HashSet<CoordinatePair> verticalPaths = getVertialPath(x, y, currentPlayer);
@@ -148,7 +146,6 @@ public class ChessBoard {
 			paths.add(tmpCoordP);
 			pathBlocked = true;
 			}
-		//If path is not blocked add the coordinates to the path
 		if(!pathBlocked) {
 			paths.add(tmpCoordP);
 			}
@@ -164,7 +161,6 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
@@ -185,7 +181,6 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
@@ -201,7 +196,6 @@ public class ChessBoard {
 					paths.add(tmpCoordP);
 					pathBlocked = true;
 					}
-				//If path is not blocked add the coordinates to the path
 				if(!pathBlocked) {
 					paths.add(tmpCoordP);
 					}
@@ -242,12 +236,10 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
 		}
-
 			return paths;
 	}
 	
@@ -257,7 +249,6 @@ public class ChessBoard {
 		
 		int k = Math.max(x, getWidth()-y-1);
 		for(int i = 1;i+k < getWidth() ;i++) {
-			//TODO refactor this into a method, for code reuse
 			CoordinatePair tmpCoordP = getCoordinates(x+i,y-i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
@@ -267,7 +258,6 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
@@ -280,7 +270,6 @@ public class ChessBoard {
 		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
 		boolean pathBlocked = false;
 		int k = Math.max(x, y);
-		//TODO refactor this into a method, for code reuse
 		for(int i = 1;i+k < getHeight() ;i++) {
 			CoordinatePair tmpCoordP = getCoordinates(x+i,y+i);
 			
@@ -291,7 +280,6 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
@@ -315,7 +303,6 @@ public class ChessBoard {
 				paths.add(tmpCoordP);
 				pathBlocked = true;
 				}
-			//If path is not blocked add the coordinates to the path
 			if(!pathBlocked) {
 				paths.add(tmpCoordP);
 				}
@@ -323,12 +310,6 @@ public class ChessBoard {
 		return paths;
 	}
 
-	//TODO Implement to get steps for farmers and possibly kings
-	public HashSet<CoordinatePair> getForwardStep(CoordinatePair Coordp, Player currentPlayer){
-		HashSet<CoordinatePair> paths = new HashSet<CoordinatePair>();
-		
-		return paths;
-	}
 	/**
 	 * Checks if coordinates are on the chessboard
 	 * @param CoordP
@@ -358,6 +339,14 @@ public class ChessBoard {
 			return true;
 		}
 		return false;
+	}
+	public void setColoredPiece(JButton selectedSquare) {
+		this.coloredSquare = selectedSquare;
+		
+	}
+	public JButton getColoredPiece() {
+		return coloredSquare;
+		
 	}
 	
 }

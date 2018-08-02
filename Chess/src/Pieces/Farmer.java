@@ -22,6 +22,7 @@ public class Farmer extends ChessPiece{
 		int x = super.getPosition().getX();
 		int y = super.getPosition().getY();
 		ChessBoard chessBoard = ChessBoard.getInstance();
+		HashSet<CoordinatePair> tmpList = new HashSet<CoordinatePair>();	
 		
 		if (player.getColor() == "Black") {
 		CoordinatePair forward = new CoordinatePair(x+1, y);
@@ -30,21 +31,25 @@ public class Farmer extends ChessPiece{
 		CoordinatePair forwardTwo = new CoordinatePair(x+2, y);
 		if(!chessBoard.outOfBounds(forward)) {
 			if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
-			availableMoves.add(forward);
+				tmpList.add(forward);
 			}
 		}
 		if(!chessBoard.outOfBounds(rightDiag)) {
 			if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
-			availableMoves.add(rightDiag);
+				tmpList.add(rightDiag);
 			}
 		}
 		if(!chessBoard.outOfBounds(leftDiag)) {
 			if(chessBoard.occupiedByEnemy(leftDiag, this.getPlayer())) {
-			availableMoves.add(leftDiag);
+				tmpList.add(leftDiag);
 			}
 		}
 		if(x == 1) {
-			availableMoves.add(forwardTwo);
+			tmpList.add(forwardTwo);
+			}
+		
+		for(CoordinatePair CP: tmpList) {
+			availableMoves.add(chessBoard.getCoordinates(CP.getX(), CP.getY()));
 			}
 		}
 		else if(player.getColor() == "White"){
@@ -54,23 +59,27 @@ public class Farmer extends ChessPiece{
 			CoordinatePair forwardTwo = new CoordinatePair(x-2, y);
 			if(!chessBoard.outOfBounds(forward)) {
 				if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
-				availableMoves.add(forward);
+					tmpList.add(forward);
 				}
 			}
 			if(!chessBoard.outOfBounds(rightDiag)) {
 				if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
-				availableMoves.add(rightDiag);
+					tmpList.add(rightDiag);
 				}
 			}
 			if(!chessBoard.outOfBounds(leftDiag)) {
 				if(chessBoard.occupiedByEnemy(leftDiag, this.getPlayer())) {
-				availableMoves.add(leftDiag);
+					tmpList.add(leftDiag);
 				}
 			}
 			if(x == 6) {
-				availableMoves.add(forwardTwo);
+				tmpList.add(forwardTwo);
 				}
+			for(CoordinatePair CP: tmpList) {
+				availableMoves.add(chessBoard.getCoordinates(CP.getX(), CP.getY()));
+			}
 		}
+		
 		return availableMoves;
 	}
 	@Override

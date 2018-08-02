@@ -15,7 +15,6 @@ public class CoordinatePair {
 	public int getX() {
 		return xCoord;
 	}
-	
 	public boolean equals(CoordinatePair CoordP) {
 		if(this.xCoord == CoordP.getX() && this.yCoord == CoordP.getY()) {
 			return true;

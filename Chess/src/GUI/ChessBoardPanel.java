@@ -13,8 +13,7 @@ import Pieces.CoordinatePair;
 
 //Displays the state of the board. Is updated by the controller and sends information to the controller
 public class ChessBoardPanel extends JPanel {
-	
-	
+
 	private JButton [][]chessSquares;
 	private JButton selectedPiece = null;
 	
@@ -29,25 +28,21 @@ public class ChessBoardPanel extends JPanel {
 		addSquares(chessSquares);
 	}	
 	
-	//Adds all squares in the game board. Each is represented by a JButton and a CoordinatePair
 	private void addSquares(JButton[][] board) {		
 		//i is y coordinate 
 		//J is x coordinate
 			for(int i = 0; i < board.length-1; i++) {
 				for(int j = 0; j < board[i].length-1; j++) {	
-					//Create a button and a coordinatepair for each square in the game
 					CoordinatePair CoordP = new CoordinatePair(i,j);
 					JButton chessSquare = new JButton();
 					chessSquare.setPreferredSize(buttonSize);				
 					board[i][j] = chessSquare;
 					
-					//Check if the square has a chesspiece on it
-					//If so set the proper icon
+					//Check if the square has a chesspiece on it. If so set the proper icon
 					ChessPiece piece = chessBoard.getSquare(CoordP);
 					if(piece != null) {
 						chessSquare.setIcon(piece.getIcon());
 					}
-					
 					//Color the tiles
 					if((i+j)%2 == 0) {
 						chessSquare.setBackground(new Color(220, 220, 220));
@@ -57,7 +52,6 @@ public class ChessBoardPanel extends JPanel {
 						chessSquare.setBackground(new Color(80, 80, 80));
 						chessSquare.putClientProperty("Color", new Color(80, 80, 80));
 					}
-					
 					//Give the square a coordinate as a client property so that it may be found later
 					//Add a SelectSquareListener to each button
 					chessSquare.putClientProperty("CoordP", chessBoard.getCoordinates(i, j));
@@ -81,12 +75,13 @@ public class ChessBoardPanel extends JPanel {
 		return selectedPiece;
 	}
 	
-	//Return a specific tile/spot
-		public JButton getSquare(CoordinatePair CoordP) {
-			return chessSquares[CoordP.getX()][CoordP.getY()];
+	public JButton getSquare(CoordinatePair CoordP) {
+		return chessSquares[CoordP.getX()][CoordP.getY()];
 		}
 		
-
+	public void colorSelectedSquare() {
+		
+	}
 	
 }
 

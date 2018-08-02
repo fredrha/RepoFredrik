@@ -18,31 +18,25 @@ public class Player {
 	private String color;
 	private HashSet<ChessPiece> chessPieces;
 	
-	public boolean isChecked = false;
-	
 	public Player(String color) {
 		this.color = color;
 		chessPieces = new HashSet<ChessPiece>();
 	}
-
 	public HashSet<ChessPiece> getChessPieces(){
 		return chessPieces;
 	}
-	
 	public void addPiece(ChessPiece piece) {
 		if(piece instanceof King) {
 			king = (King)piece;
 		}
 		chessPieces.add(piece);
 	}
-	
 	public void removePiece(ChessPiece piece){
 		chessPieces.remove(piece);
 	}
 	public String getColor() {
 		return color;
 	}
-	
 	public King getKing() {
 		return king;
 	}
@@ -68,10 +62,8 @@ public class Player {
 	//Checks if all of the opponents kings possible moves are included in the possible moves
 	//of the current player.
 	public boolean opponentIsCheckMate() {
-		
 		GameController controller = GameController.getInstance();
 		Player opponent = controller.getOpponent();
-		
 		HashSet<CoordinatePair> currentPlayermoves = new HashSet<CoordinatePair>();
 		for(ChessPiece piece: this.getChessPieces()) {
 			currentPlayermoves.addAll(piece.updatePossibleMoves());

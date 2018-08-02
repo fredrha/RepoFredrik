@@ -40,7 +40,6 @@ public class Chess extends JFrame {
 		controller.initPieces();
 		
 		Chess chess = Chess.getInstance();
-		
 	}
 	
 	public static Chess getInstance() {
@@ -58,7 +57,6 @@ public class Chess extends JFrame {
 
 	public void updateLatestMove(String move) {
 		statusPanel.updateLatestMove(move);
-		
 	}
 
 	public void restart() {

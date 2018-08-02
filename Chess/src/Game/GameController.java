@@ -52,10 +52,8 @@ public class GameController {
 	public String getStatus() {
 		return status;
 	}
-	//TODO add functionality for restarting players
+	//TODO add functionality for restarting players. If we need it.
 	public void restart() {
-		//check to see if we need restart method for players
-		//whitePlayer.restart();
 		
 		status = INPROGRESS;
 		ChessBoard.initInstance(8, 8);
@@ -123,8 +121,6 @@ public class GameController {
 	public void updateGameState() {
 		Chess chess = Chess.getInstance();
 		
-		
-		
 		if(getCurrentPlayer().opponentIsChecked()) {
 			chess.updateGameState("checked");
 
@@ -141,7 +137,6 @@ public class GameController {
 		else {
 			chess.updateGameState(null);
 		}
-
 	}
 
 	public void updateLatestmove(ChessPiece piece, CoordinatePair targetCoord) {
@@ -153,7 +148,6 @@ public class GameController {
 				" to" + " " + xCoord + " " + targetCoord.getY();	
 		
 	chess.updateLatestMove(move);
-
 	}
 	
 	private String translateCoordinates(CoordinatePair CoordP) {
@@ -175,11 +169,4 @@ public class GameController {
 		return null;
 	}
 	
-	
-	public void isKingDead() {
-		if(currentPlayer.getKing() == null) {
-			System.out.println("Game Over");
-		}
-		
-	}
 }
