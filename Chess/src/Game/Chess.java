@@ -20,7 +20,7 @@ public class Chess extends JFrame {
 		setVisible(true);
 		setTitle("Chess");
 		
-		ChessBoardPanel chessBoardPanel = new ChessBoardPanel(9,9);
+		chessBoardPanel = new ChessBoardPanel(9,9);
 		add(chessBoardPanel, BorderLayout.CENTER);
 		
 		statusPanel = new GameStatusPanel();
@@ -38,6 +38,8 @@ public class Chess extends JFrame {
 	public static void main(String[]args) {
 		GameController controller = GameController.initInstance();
 		controller.initPieces();
+		
+		Chess chess = Chess.getInstance();
 		
 	}
 	
@@ -59,10 +61,14 @@ public class Chess extends JFrame {
 		
 	}
 
-	public static void restart() {
+	public void restart() {
 		GameController controller = GameController.initInstance();
 		controller.restart();
-		
+		this.remove(chessBoardPanel);
+		chessBoardPanel = new ChessBoardPanel(9,9);
+		this.add(chessBoardPanel, BorderLayout.CENTER);
+		this.revalidate();
+		this.repaint();
 	}
 	
 }

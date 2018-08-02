@@ -42,7 +42,8 @@ public class Knight extends ChessPiece {
 		for(CoordinatePair CoordP: tmpList) {
 			if(!chessboard.outOfBounds(CoordP)) {
 				if(!chessboard.occupiedByFriend(CoordP, this.getPlayer())) {
-					availableMoves.add(CoordP);
+					CoordinatePair newCoordPair = chessboard.getCoordinates(CoordP.getX(), CoordP.getY());
+					availableMoves.add(newCoordPair);
 				}	
 			}
 		}

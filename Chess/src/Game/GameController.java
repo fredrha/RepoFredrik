@@ -118,11 +118,12 @@ public class GameController {
 			currentPlayer = whitePlayer;
 		}
 		chess.switchPlayer();
-		System.out.println(currentPlayer.getColor().toString());
 	}
 	
 	public void updateGameState() {
 		Chess chess = Chess.getInstance();
+		
+		
 		
 		if(getCurrentPlayer().opponentIsChecked()) {
 			chess.updateGameState("checked");

@@ -139,7 +139,7 @@ public class ChessBoard {
 		boolean pathBlocked = false;
 		
 		for(int i = y-1; i >= 0; i--) {
-		CoordinatePair tmpCoordP = new CoordinatePair(x,i);
+		CoordinatePair tmpCoordP = getCoordinates(x,i);
 		
 		if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 			pathBlocked = true;
@@ -155,7 +155,7 @@ public class ChessBoard {
 		} 
 		pathBlocked = false;
 		for(int i = y+1; i < getWidth(); i++) {
-			CoordinatePair tmpCoordP = new CoordinatePair(x,i);
+			CoordinatePair tmpCoordP = getCoordinates(x,i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -176,7 +176,7 @@ public class ChessBoard {
 		boolean pathBlocked = false; 
 		
 			for(int i = x-1; i >= 0; i--) {
-			CoordinatePair tmpCoordP = new CoordinatePair(i,y);
+			CoordinatePair tmpCoordP = getCoordinates(i,y);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -192,7 +192,7 @@ public class ChessBoard {
 			} 
 			pathBlocked = false;
 			for(int i = x+1; i < getWidth(); i++) {
-				CoordinatePair tmpCoordP = new CoordinatePair(i,y);
+				CoordinatePair tmpCoordP = getCoordinates(i,y);
 				
 				if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 					pathBlocked = true;
@@ -233,7 +233,7 @@ public class ChessBoard {
 		int k = Math.min(x, y);
 		for(int i = 1; i <= k; i++) {
 			//TODO refactor this into a method, for code reuse
-			CoordinatePair tmpCoordP = new CoordinatePair(x-i,y-i);
+			CoordinatePair tmpCoordP = getCoordinates(x-i,y-i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -258,7 +258,7 @@ public class ChessBoard {
 		int k = Math.max(x, getWidth()-y-1);
 		for(int i = 1;i+k < getWidth() ;i++) {
 			//TODO refactor this into a method, for code reuse
-			CoordinatePair tmpCoordP = new CoordinatePair(x+i,y-i);
+			CoordinatePair tmpCoordP = getCoordinates(x+i,y-i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -282,7 +282,7 @@ public class ChessBoard {
 		int k = Math.max(x, y);
 		//TODO refactor this into a method, for code reuse
 		for(int i = 1;i+k < getHeight() ;i++) {
-			CoordinatePair tmpCoordP = new CoordinatePair(x+i,y+i);
+			CoordinatePair tmpCoordP = getCoordinates(x+i,y+i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -306,7 +306,7 @@ public class ChessBoard {
 		int k = Math.max(getHeight()-x-1, y);
 		//TODO refactor into method: Idea, method including for loop, Inputs specify limits and whether to go up or down
 		for(int i = 1;i+k < getHeight() ;i++) {
-			CoordinatePair tmpCoordP = new CoordinatePair(x-i,y+i);
+			CoordinatePair tmpCoordP = getCoordinates(x-i,y+i);
 			
 			if(occupiedByFriend(tmpCoordP,currentPlayer)) {
 				pathBlocked = true;
@@ -337,6 +337,9 @@ public class ChessBoard {
 	public boolean outOfBounds(CoordinatePair CoordP) {
 		int x = CoordP.getX();
 		int y = CoordP.getY();
+		return outOfBounds(x,y);
+	}
+	public boolean outOfBounds(int x, int y) {
 		if(x >= getHeight()|| x < 0|| y >= getWidth() || y < 0) {
 			return true;
 		}

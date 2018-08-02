@@ -25,8 +25,6 @@ public class Player {
 		chessPieces = new HashSet<ChessPiece>();
 	}
 
-
-
 	public HashSet<ChessPiece> getChessPieces(){
 		return chessPieces;
 	}
@@ -49,7 +47,7 @@ public class Player {
 		return king;
 	}
 
-	//Checks if checked
+	//Checks if the opponent is checked
 	public boolean opponentIsChecked() {
 		Chess chess = Chess.getInstance();
 		GameController controller = GameController.getInstance();
@@ -58,44 +56,34 @@ public class Player {
 
 		for(ChessPiece piece: this.getChessPieces()) {
 			HashSet<CoordinatePair> availableMoves = piece.updatePossibleMoves();
-			for(CoordinatePair CP: availableMoves) {
-				if(CP.equals(opKingPosition)) {
-					
+			
+			if(availableMoves.contains(opKingPosition)) {
 					chess.updateGameState("checked");
 					return true;
-					
 				}
-			}
 		}
 		return false;
 	}
 	
-	//TODO fix so that this works properly. 
 	//Checks if all of the opponents kings possible moves are included in the possible moves
-	//of the current players pieces possible moves.
+	//of the current player.
 	public boolean opponentIsCheckMate() {
 		
 		GameController controller = GameController.getInstance();
 		Player opponent = controller.getOpponent();
-		HashSet<CoordinatePair> kingsMoves = opponent.getKing().updatePossibleMoves();
-		int i = 0;
 		
+		HashSet<CoordinatePair> currentPlayermoves = new HashSet<CoordinatePair>();
 		for(ChessPiece piece: this.getChessPieces()) {
-			HashSet<CoordinatePair> availableMoves = piece.updatePossibleMoves();
-			for(CoordinatePair CP: availableMoves) {
-				for(CoordinatePair KCP:kingsMoves) {
-					if(KCP.equals(CP)) {	
-						i++;
-					}
+			currentPlayermoves.addAll(piece.updatePossibleMoves());
+		}
+		HashSet<CoordinatePair> kingsMoves = opponent.getKing().updatePossibleMoves();
+		for(CoordinatePair CP: kingsMoves) {
+			if(!currentPlayermoves.contains(CP)) {
+				System.out.println(CP.getX() + " " + CP.getY());
+				return false;
 				}
-
-			}
 		}
-		if(i == kingsMoves.size()) {
-			return true;
-		}
-		
-		return false;
+		return true;
 	}
 
 	//TODO implement
@@ -105,10 +93,5 @@ public class Player {
 	}
 
 
-
-	public void killKing() {
-		king = null;
-	}
-	
 	
 }

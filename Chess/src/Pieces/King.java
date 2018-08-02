@@ -5,12 +5,12 @@ import java.util.HashSet;
 import javax.swing.ImageIcon;
 
 import Game.ChessBoard;
+import Game.GameController;
 import Game.Player;
 
 public class King extends ChessPiece{
 	
 	private ImageIcon icon;
-	
 	
 	public King(CoordinatePair CoordPair, Player player) {
 		super(CoordPair, player);
@@ -25,8 +25,8 @@ public class King extends ChessPiece{
 		ChessBoard chessboard = ChessBoard.getInstance();
 		for(int i = x-1; i <= x+1; i++) {
 			for(int j = y-1; j <= y+1; j++) {
-				CoordinatePair CoordP = new CoordinatePair(i,j);
-				if(!chessboard.outOfBounds(CoordP)) {
+				if(!chessboard.outOfBounds(i,j)) {
+					CoordinatePair CoordP = chessboard.getCoordinates(i, j);
 					if(!chessboard.occupiedByFriend(CoordP, this.getPlayer())) {
 						if(!CoordP.equals(this.getPosition())){
 							availableMoves.add(CoordP);
