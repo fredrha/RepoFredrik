@@ -18,7 +18,7 @@ public class Player {
 	private String color;
 	private HashSet<ChessPiece> chessPieces;
 	
-	public boolean isChecked;
+	public boolean isChecked = false;
 	
 	public Player(String color) {
 		this.color = color;
@@ -51,6 +51,7 @@ public class Player {
 
 	//Checks if checked
 	public boolean opponentIsChecked() {
+		Chess chess = Chess.getInstance();
 		GameController controller = GameController.getInstance();
 		Player opponent = controller.getOpponent();
 		CoordinatePair opKingPosition = opponent.getKing().getPosition();
@@ -58,20 +59,41 @@ public class Player {
 		for(ChessPiece piece: this.getChessPieces()) {
 			HashSet<CoordinatePair> availableMoves = piece.updatePossibleMoves();
 			for(CoordinatePair CP: availableMoves) {
-				if(CP.equals(opKingPosition)) {	
-
+				if(CP.equals(opKingPosition)) {
+					
+					chess.updateGameState("checked");
 					return true;
+					
 				}
 			}
 		}
 		return false;
 	}
-	//TODO implement
+	
+	//TODO fix so that this works properly. 
+	//Checks if all of the opponents kings possible moves are included in the possible moves
+	//of the current players pieces possible moves.
 	public boolean opponentIsCheckMate() {
 		
 		GameController controller = GameController.getInstance();
 		Player opponent = controller.getOpponent();
+		HashSet<CoordinatePair> kingsMoves = opponent.getKing().updatePossibleMoves();
+		int i = 0;
 		
+		for(ChessPiece piece: this.getChessPieces()) {
+			HashSet<CoordinatePair> availableMoves = piece.updatePossibleMoves();
+			for(CoordinatePair CP: availableMoves) {
+				for(CoordinatePair KCP:kingsMoves) {
+					if(KCP.equals(CP)) {	
+						i++;
+					}
+				}
+
+			}
+		}
+		if(i == kingsMoves.size()) {
+			return true;
+		}
 		
 		return false;
 	}
@@ -80,6 +102,12 @@ public class Player {
 	public boolean isStaleMate() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+
+	public void killKing() {
+		king = null;
 	}
 	
 	

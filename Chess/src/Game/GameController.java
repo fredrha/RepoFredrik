@@ -25,6 +25,8 @@ public class GameController {
 	public static final String STALEMATE = "stalemate";
 	public static final String INPROGRESS = "in progress";
 	
+	private boolean isChecked = false;
+	
 	private String status;
 	
 	public GameController() {
@@ -108,46 +110,75 @@ public class GameController {
 		}
 	}
 	public void switchPlayer() {
+		Chess chess = Chess.getInstance();
 		if(currentPlayer == whitePlayer) {
 			currentPlayer = blackPlayer;
 		}
 		else if(currentPlayer == blackPlayer) {
 			currentPlayer = whitePlayer;
 		}
-		Chess.switchPlayer();
+		chess.switchPlayer();
+		System.out.println(currentPlayer.getColor().toString());
 	}
 	
 	public void updateGameState() {
+		Chess chess = Chess.getInstance();
 		
 		if(getCurrentPlayer().opponentIsChecked()) {
-			Chess.updateGameState("checked");
-			System.out.println("checked");
-			
-		}
-		else if(getCurrentPlayer().opponentIsCheckMate()) {
+			chess.updateGameState("checked");
+
+			if(getCurrentPlayer().opponentIsCheckMate()) {
 			status = CHECKMATE;
-			Chess.updateGameState("checkmate");
+			chess.updateGameState("checkmate");
+			}
 		}
+ 
 		else if(getCurrentPlayer().isStaleMate()) {
 			status = STALEMATE;
-			Chess.updateGameState("stalemate");
+			chess.updateGameState("stalemate");
 		}
 		else {
-			Chess.updateGameState(null);
-			System.out.println("null");
+			chess.updateGameState(null);
 		}
 
 	}
 
 	public void updateLatestmove(ChessPiece piece, CoordinatePair targetCoord) {
+		Chess chess = Chess.getInstance();
 		String playerColor = piece.getPlayer().getColor();
 		String pieceName = piece.getClass().getSimpleName().toString();
+		String xCoord = translateCoordinates(targetCoord);
 		String move = playerColor + " " + pieceName +
-				" to" + " " + targetCoord.getX() + " " + targetCoord.getY();	
-	Chess.updateLatestMove(move);
+				" to" + " " + xCoord + " " + targetCoord.getY();	
 		
+	chess.updateLatestMove(move);
+
 	}
 	
-
-
+	private String translateCoordinates(CoordinatePair CoordP) {
+		int x = CoordP.getX();
+		char a = 'a';
+		if(x == 0) {
+			String result = Character.toString(a);
+			return result;
+		}
+		else {
+			for(char c = 'a'; c<'i'; c++) {
+				if(Character.getNumericValue(c) == x + 10) {
+					String result = Character.toString(c);
+					return result;
+				}
+			}
+			
+		}
+		return null;
+	}
+	
+	
+	public void isKingDead() {
+		if(currentPlayer.getKing() == null) {
+			System.out.println("Game Over");
+		}
+		
+	}
 }

@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+import Game.Chess;
 import Game.ChessBoard;
 import Game.GameController;
 import Pieces.ChessPiece;
@@ -22,6 +24,7 @@ public class SelectSquareListener implements ActionListener{
 			JButton selectedSquare = (JButton) e.getSource();
 			CoordinatePair CoordP = (CoordinatePair) selectedSquare.getClientProperty("CoordP");
 			ChessPiece piece = ((ChessPiece)chessBoard.getSquare(CoordP));
+			System.out.println(gameController.getCurrentPlayer().getColor().toString());
 			
 			if(piece != null && piece.getPlayer() == gameController.getCurrentPlayer()) {
 				
@@ -59,8 +62,14 @@ public class SelectSquareListener implements ActionListener{
 			gameController.updateLatestmove(piece, targetCoordP);
 			gameController.switchPlayer();
 		}	
+		Chess chess = Chess.getInstance();
 		//TODO implement functions that check the state of the board and call them here
-			//if(controller.getstatus() == "Checked")
+		if (gameController.getStatus() == gameController.CHECKMATE) {
+			JOptionPane.showMessageDialog(null, gameController.CHECKMATE);
+			
+			chess.restart();
+			return;
+		}
 		
 	}
 	

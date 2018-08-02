@@ -17,7 +17,6 @@ public class Farmer extends ChessPiece{
 		availableMoves = new HashSet<CoordinatePair>();		
 	}
 	
-	//TODO remake this according to true chessrules
 	@Override
 	public HashSet<CoordinatePair> updatePossibleMoves() {
 		int x = super.getPosition().getX();
@@ -29,8 +28,10 @@ public class Farmer extends ChessPiece{
 		CoordinatePair rightDiag = new CoordinatePair(x+1, y+1);
 		CoordinatePair leftDiag = new CoordinatePair(x+1, y-1);
 		CoordinatePair forwardTwo = new CoordinatePair(x+2, y);
-		if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
+		if(!chessBoard.outOfBounds(forward)) {
+			if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
 			availableMoves.add(forward);
+			}
 		}
 		if(!chessBoard.outOfBounds(rightDiag)) {
 			if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {
@@ -51,8 +52,10 @@ public class Farmer extends ChessPiece{
 			CoordinatePair rightDiag = new CoordinatePair(x-1, y+1);
 			CoordinatePair leftDiag = new CoordinatePair(x-1, y-1);
 			CoordinatePair forwardTwo = new CoordinatePair(x-2, y);
-			if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
+			if(!chessBoard.outOfBounds(forward)) {
+				if(!chessBoard.occupiedByEnemy(forward, this.getPlayer())) {
 				availableMoves.add(forward);
+				}
 			}
 			if(!chessBoard.outOfBounds(rightDiag)) {
 				if(chessBoard.occupiedByEnemy(rightDiag, this.getPlayer())) {

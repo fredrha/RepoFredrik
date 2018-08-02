@@ -27,9 +27,7 @@ public class ChessBoardPanel extends JPanel {
 		chessBoard = ChessBoard.getInstance();
 		chessSquares  = new JButton[height][width];
 		addSquares(chessSquares);
-
 	}	
-	
 	
 	//Adds all squares in the game board. Each is represented by a JButton and a CoordinatePair
 	private void addSquares(JButton[][] board) {		
@@ -42,8 +40,6 @@ public class ChessBoardPanel extends JPanel {
 					JButton chessSquare = new JButton();
 					chessSquare.setPreferredSize(buttonSize);				
 					board[i][j] = chessSquare;
-					
-					board[i][j].setText("x(i) " + i + " y(j) "+ j);
 					
 					//Check if the square has a chesspiece on it
 					//If so set the proper icon
@@ -70,18 +66,15 @@ public class ChessBoardPanel extends JPanel {
 				}
 		}			
 			
-			//TODO investigate why this does not work properly
+			//TODO investigate why this does not work for adding coordinatetiles on the right.
 			for(int i = 0; i < board.length-1; i++) {
 				JButton chessSquare = new JButton(""+ (i+1));
 				Color green = new Color(160,220,60);
-				chessSquare.setBackground(green);			
+				chessSquare.setBackground(green);		
+				chessSquare.setEnabled(false);
 				board[i][board[i].length-1] = chessSquare;
 				add(chessSquare);
 			}
-			
-			
-			
-			
 	}
 	
 	public JButton getSelectedPiece() {
