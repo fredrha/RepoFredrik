@@ -121,16 +121,20 @@ public class GameController {
 		
 		if(getCurrentPlayer().opponentIsChecked()) {
 			Chess.updateGameState("checked");
+			System.out.println("checked");
 			
 		}
-		if(getCurrentPlayer().opponentIsCheckMate()) {
+		else if(getCurrentPlayer().opponentIsCheckMate()) {
 			status = CHECKMATE;
+			Chess.updateGameState("checkmate");
 		}
-		if(getCurrentPlayer().isStaleMate()) {
+		else if(getCurrentPlayer().isStaleMate()) {
 			status = STALEMATE;
+			Chess.updateGameState("stalemate");
 		}
 		else {
 			Chess.updateGameState(null);
+			System.out.println("null");
 		}
 
 	}

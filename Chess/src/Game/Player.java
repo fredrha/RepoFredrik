@@ -73,7 +73,7 @@ public class Player {
 		Player opponent = controller.getOpponent();
 		
 		
-		return true;
+		return false;
 	}
 
 	//TODO implement
