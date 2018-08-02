@@ -17,29 +17,28 @@ public class Chess extends JFrame {
 	//Constructor that creates the GUI. Has a Chess board
 	public Chess(){
 		super();
+		setVisible(true);
+		setTitle("Chess");
+		
+		ChessBoardPanel chessBoardPanel = new ChessBoardPanel(9,9);
+		add(chessBoardPanel, BorderLayout.CENTER);
+		
+		statusPanel = new GameStatusPanel();
+		add(statusPanel, BorderLayout.NORTH);
+		
+		LetterCoordinatePanel letterPanel = new LetterCoordinatePanel();
+		add(letterPanel, BorderLayout.EAST);
+		
+		pack();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 	}
 	
-	//TODO refactor into constructor. Beware of breaking the layout in the other panels.
+	
 	public static void main(String[]args) {
-		Chess chessGame = new Chess();
-		chessGame.setVisible(true);
-		chessGame.setTitle("Chess");
-		
 		GameController controller = GameController.initInstance();
 		controller.initPieces();
 		
-		ChessBoardPanel chessBoardPanel = new ChessBoardPanel(9,9);
-		chessGame.add(chessBoardPanel, BorderLayout.CENTER);
-		
-		statusPanel = new GameStatusPanel();
-		chessGame.add(statusPanel, BorderLayout.NORTH);
-		
-		LetterCoordinatePanel letterPanel = new LetterCoordinatePanel();
-		chessGame.add(letterPanel, BorderLayout.EAST);
-		
-		chessGame.pack();
-		chessGame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		chessGame.setLocationRelativeTo(null);
 	}
 	
 	public static Chess getInstance() {
@@ -48,14 +47,14 @@ public class Chess extends JFrame {
 		}
 		return chess;
 	}
-	public static void switchPlayer() {
+	public void switchPlayer() {
 		statusPanel.switchPlayer();
 	}
-	public static void updateGameState(String status) {
+	public void updateGameState(String status) {
 		statusPanel.updateGameState(status);
 	}
 
-	public static void updateLatestMove(String move) {
+	public void updateLatestMove(String move) {
 		statusPanel.updateLatestMove(move);
 		
 	}
