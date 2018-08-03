@@ -129,7 +129,6 @@ public class GameController {
 			chess.updateGameState("checkmate");
 			}
 		}
- 
 		else if(getCurrentPlayer().isStaleMate()) {
 			status = STALEMATE;
 			chess.updateGameState("stalemate");
