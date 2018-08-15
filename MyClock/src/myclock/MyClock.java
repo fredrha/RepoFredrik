@@ -11,13 +11,15 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class MyClock {
    
@@ -44,40 +46,6 @@ public class MyClock {
    }
    
     public static void main(String[] args) throws InterruptedException  {
-        System.out.println(LocalDateTime.now());
-     
-        JFrame mainFrame = new JFrame();
-        mainFrame = new JFrame("MyClock");
-        mainFrame.setPreferredSize(new Dimension(200,200));
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
-        mainFrame.setLayout(new GridLayout(3,1));
-        
-        JLabel textPanel = new JLabel();
-        textPanel.setText("Select timezone");
-        mainFrame.add(textPanel);
-        
-        String[] choices = { "-3","-2", "-1","GMT","+1","+2"};
-
-        JComboBox<String> timeZones = new JComboBox<String>(choices);
-
-        timeZones.setVisible(true);
-        mainFrame.add(timeZones);
-        
-        JButton startClockButton = new JButton("Start clock");
-        startClockButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    MyClock myClock = new MyClock();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MyClock.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-        });
-        
-        mainFrame.add(startClockButton);
-        mainFrame.pack();
-    }
+        SelectClockView selectClockView = new SelectClockView();
+    }      
 }

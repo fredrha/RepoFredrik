@@ -45,7 +45,6 @@ public class ClockEngine {
         System.out.println(minutes);
         System.out.println(hours);
         date = new Date();
-        System.out.println(dateFormat.format(date));
     }
     
     private double calcSecPointerAngle(int seconds){
