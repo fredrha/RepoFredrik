@@ -32,13 +32,11 @@ public class SelectClockView extends JFrame{
     
     public SelectClockView(){
         super();
-        
         setVisible(true);
         setLayout(new GridLayout(3,1));
         setPreferredSize(new Dimension(200,200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        
         this.textPanel = new JLabel();
         textPanel.setText("Select timezone");
         add(textPanel);
@@ -53,17 +51,17 @@ public class SelectClockView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    
+                    MyClock myClock = MyClock.getInstance();
                     LocalTime localTime = getSelectedTimeZone();
-
-                    MyClock myClock = new MyClock();
+                    int sec =  localTime.getSecond();
+                    int min = localTime.getMinute();
+                    int hour = localTime.getHour();
+                    myClock.initClock(sec, min, hour);                   
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MyClock.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            
+            } 
         });
-        
         add(startClockButton);
         pack();
     }

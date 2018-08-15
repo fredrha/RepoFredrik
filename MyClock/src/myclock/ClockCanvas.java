@@ -16,12 +16,12 @@ import java.awt.Graphics;
  */
 public class ClockCanvas extends Canvas{
 
-    private double secPointerX;
-    private double secPointerY;
-    private double minPointerX;
-    private double minPointerY;
+    private double secPointerX, secPointerY;
+    private double minPointerX, minPointerY;
+    private double hourPointerX, hourPointerY;
     private double SecPointerAngle = -Math.PI/2;
     private double minPointerAngle = -Math.PI/2;
+    private double hourPointerAngle = -Math.PI/2;
     
     private int clockMidX;
     private int clockMidY;
@@ -40,8 +40,10 @@ public class ClockCanvas extends Canvas{
         this.clockMidY = y+height/2;
         this.secPointerX =  x+width/2;
         this.secPointerY = y;
-        this.minPointerX = 0;//x;
-        this.minPointerY = 0;//y+height;
+        this.minPointerX = x+width/2;
+        this.minPointerY = y+height/2;
+        this.hourPointerX = x+width/2;
+        this.hourPointerY = y + height/4;
    }
     
     public void paint(Graphics g){
@@ -59,6 +61,7 @@ public class ClockCanvas extends Canvas{
       
         g.drawLine(clockMidX, clockMidY, (int)secPointerX, (int)secPointerY);
         g.drawLine(clockMidX, clockMidY, (int)minPointerX, (int) minPointerY);
+         g.drawLine(clockMidX, clockMidY, (int)hourPointerX, (int) hourPointerY);
 
     }
 
@@ -72,6 +75,11 @@ public class ClockCanvas extends Canvas{
         this.minPointerAngle = minPointerAngle;
         this.minPointerX = clockMidX + 100 * Math.cos(minPointerAngle);
         this.minPointerY = clockMidY + 100 * Math.sin(minPointerAngle);
+    }
+    public void updateHourPointerAngle(double hourPointerAngle){
+        this.hourPointerAngle = hourPointerAngle;
+        this.hourPointerX = clockMidX + 75 * Math.cos(hourPointerAngle);
+        this.hourPointerY = clockMidY + 75 * Math.sin(hourPointerAngle);
     }
     
 }

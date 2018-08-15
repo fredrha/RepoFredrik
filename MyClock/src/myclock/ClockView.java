@@ -25,9 +25,10 @@ public class ClockView{
         window.setVisible(true);
     }
 
-    void update(double secPointerAngle, double minPointerAngle) {
+    void update(double secPointerAngle, double minPointerAngle, double hourPointerAngle) {
         canvas.updateSecPointerAngle(secPointerAngle);
         canvas.updateMinPointerAngle(minPointerAngle);
+        canvas.updateHourPointerAngle(hourPointerAngle);
         canvas.update(canvas.getGraphics());
         window.repaint();
     }

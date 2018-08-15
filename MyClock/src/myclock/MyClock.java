@@ -25,24 +25,35 @@ public class MyClock {
    
    private ClockEngine clockEngine;
    private ClockView clockView;
+   private static MyClock myClock = null;
    
-   public MyClock() throws InterruptedException{
-       clockEngine = new ClockEngine(0,0,0);
-       clockView = new ClockView(800, 600);
+   public MyClock(){
        
-      startClock();
+   }
+   public static MyClock getInstance(){
+       if(myClock == null){
+           myClock = new MyClock();
+       }
+       return myClock;
+   }
+   
+   public void initClock(int sec, int min, int hour)throws InterruptedException{
+       
+       clockEngine = new ClockEngine(sec,min,hour);
+       clockView = new ClockView(800, 600);
+       clockView.update(clockEngine.getSecPointerAngle(), clockEngine.getMinPointerAngle(), clockEngine.getHourPointAngle());
+       startClock();
    }
 
    private void startClock()throws InterruptedException{
-       clockEngine.pritnTimepassed();
+       //clockEngine.startClock();
        int i = 0;
         while(i <3600){
            clockEngine.tick(); 
-           clockView.update(clockEngine.getSecPointerAngle(), clockEngine.getMinPointerAngle());
+           clockView.update(clockEngine.getSecPointerAngle(), clockEngine.getMinPointerAngle(), clockEngine.getHourPointAngle());
            i++;
-           Thread.sleep(1000);
+           Thread.sleep(100);
         }
-       clockEngine.pritnTimepassed();
    }
    
     public static void main(String[] args) throws InterruptedException  {
