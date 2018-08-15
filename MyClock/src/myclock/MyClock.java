@@ -57,7 +57,7 @@ public class MyClock {
         textPanel.setText("Select timezone");
         mainFrame.add(textPanel);
         
-        String[] choices = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] choices = { "-3","-2", "-1","GMT","+1","+2"};
 
         JComboBox<String> timeZones = new JComboBox<String>(choices);
 
