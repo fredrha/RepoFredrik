@@ -17,7 +17,7 @@ public class ClockView{
     private JFrame window;
     
     public ClockView(int width, int height){
-        window = new JFrame("GraphicsDemo1");
+        window = new JFrame("Clock");
         window.setSize(width,height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         canvas = new ClockCanvas(200,50, 400, 400);

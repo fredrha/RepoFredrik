@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,7 +28,8 @@ public class SelectClockView extends JFrame{
     private JLabel textPanel;
     private JButton startClockButton;
     private JComboBox<String> timeZones;
-    private static MyClock parent;
+    private ScheduledThreadPoolExecutor eventPool;
+ 
     
     public SelectClockView(){
         super();
@@ -36,12 +37,20 @@ public class SelectClockView extends JFrame{
         setLayout(new GridLayout(3,1));
         setPreferredSize(new Dimension(200,200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        eventPool = new ScheduledThreadPoolExecutor(5);
+        addComponents();
+        
+        add(startClockButton);
+        pack();
+    }
+    
+    private void addComponents() {
         this.textPanel = new JLabel();
         textPanel.setText("Select timezone");
         add(textPanel);
         
-        String[] choices = { "Europe/London","Europe/Stockholm", "Europe/Helsinki","Europe/Moscow","Asia/Beijing","Asia/Tokyo"};
+        String[] choices = { "Europe/London","Europe/Stockholm", "Europe/Helsinki","Europe/Moscow","Asia/Tokyo"};
         timeZones = new JComboBox<String>(choices);
         timeZones.setVisible(true);
         add(timeZones);
@@ -50,31 +59,15 @@ public class SelectClockView extends JFrame{
         startClockButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    MyClock myClock = MyClock.getInstance();
-                    LocalTime localTime = getSelectedTimeZone();
-                    int sec =  localTime.getSecond();
-                    int min = localTime.getMinute();
-                    int hour = localTime.getHour();
-                    myClock.initClock(sec, min, hour);                   
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MyClock.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                String timezone = (String)timeZones.getSelectedItem();
+                Clock clock = new Clock(timezone);
+                eventPool.scheduleAtFixedRate(clock, 0, 1, TimeUnit.SECONDS);
+                clock.start();
+                
+                System.out.println(Thread.activeCount());
             } 
         });
-        add(startClockButton);
-        pack();
     }
     
-    private LocalTime getSelectedTimeZone(){
-        String timezone = (String)timeZones.getSelectedItem();
-        if(timezone == null){
-            System.out.println("No timezone selected");
-        }
-        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of(timezone));
-        LocalTime localTime = zonedDateTime.toLocalTime();
-        System.out.println(localTime);
-        
-        return localTime;
-    }
+    
 }
