@@ -53,20 +53,20 @@ public class ClockCanvas extends Canvas{
         g.setColor(Color.BLACK);
         g.drawOval(x, y, width, height);
         g.setFont(new Font("Sans senrif", Font.BOLD, 30) );
-        g.drawString("12", clockMidX-15, y+30);
+       
+        g.drawString("12", (int)(clockMidX+ 170*Math.cos(-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin(-Math.PI/2))+15);
+        g.drawString("1", (int)(clockMidX+ 170*Math.cos((Math.PI/6)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((Math.PI/6)-Math.PI/2))+15);
+        g.drawString("2", (int)(clockMidX+ 170*Math.cos((Math.PI/3)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((Math.PI/3)-Math.PI/2))+15);
+        g.drawString("3", (int)(clockMidX+ 170*Math.cos((Math.PI/2)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((Math.PI/2)-Math.PI/2))+15);
+        g.drawString("4", (int)(clockMidX+ 170*Math.cos((2*Math.PI/3)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((2*Math.PI/3)-Math.PI/2))+15);
+        g.drawString("5", (int)(clockMidX+ 170*Math.cos((5*Math.PI/6)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((5*Math.PI/6)-Math.PI/2))+15);
+        g.drawString("6", (int)(clockMidX+ 170*Math.cos((Math.PI)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((Math.PI)-Math.PI/2))+15);
         
-        g.drawString("1", (int)(clockMidX+ 170*Math.cos((Math.PI/6)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((Math.PI/6)-Math.PI/2)));
-        g.drawString("2", (int)(clockMidX+ 170*Math.cos((Math.PI/3)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((Math.PI/3)-Math.PI/2)));
-        g.drawString("3", (int)(clockMidX+ 170*Math.cos((Math.PI/2)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((Math.PI/2)-Math.PI/2)));
-        g.drawString("4", (int)(clockMidX+ 170*Math.cos((2*Math.PI/3)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((2*Math.PI/3)-Math.PI/2)));
-        g.drawString("5", (int)(clockMidX+ 170*Math.cos((5*Math.PI/6)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((5*Math.PI/6)-Math.PI/2)));
-        g.drawString("6", (int)(clockMidX+ 170*Math.cos((Math.PI)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((Math.PI)-Math.PI/2)));
-        
-        g.drawString("7", (int)(clockMidX+ 170*Math.cos((7*Math.PI/6)-Math.PI/2)), (int)(clockMidY+ 170*Math.sin((7*Math.PI/6)-Math.PI/2)));
-        g.drawString("8", (int)(clockMidX+ 170*Math.cos((4*Math.PI/3)-Math.PI/2)), (int)(clockMidY+ 170*Math.sin((4*Math.PI/3)-Math.PI/2)));
-        g.drawString("9", (int)(clockMidX+ 170*Math.cos((3*Math.PI/2)-Math.PI/2)), (int)(clockMidY+ 170*Math.sin((3*Math.PI/2)-Math.PI/2)));
-        g.drawString("10", (int)(clockMidX+ 170*Math.cos((10*Math.PI/6)-Math.PI/2)), (int)(clockMidY+ 170*Math.sin((10*Math.PI/6)-Math.PI/2)));
-        g.drawString("11", (int)(clockMidX+ 170*Math.cos((11*Math.PI/6)-Math.PI/2)), (int)(clockMidY+ 170*Math.sin((11*Math.PI/6)-Math.PI/2)));
+        g.drawString("7", (int)(clockMidX+ 170*Math.cos((7*Math.PI/6)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((7*Math.PI/6)-Math.PI/2))+15);
+        g.drawString("8", (int)(clockMidX+ 170*Math.cos((4*Math.PI/3)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((4*Math.PI/3)-Math.PI/2))+15);
+        g.drawString("9", (int)(clockMidX+ 170*Math.cos((3*Math.PI/2)-Math.PI/2))-10, (int)(clockMidY+ 170*Math.sin((3*Math.PI/2)-Math.PI/2))+15);
+        g.drawString("10", (int)(clockMidX+ 170*Math.cos((10*Math.PI/6)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((10*Math.PI/6)-Math.PI/2))+15);
+        g.drawString("11", (int)(clockMidX+ 170*Math.cos((11*Math.PI/6)-Math.PI/2))-15, (int)(clockMidY+ 170*Math.sin((11*Math.PI/6)-Math.PI/2))+15);
         
         
        
